@@ -73,3 +73,26 @@
     mark();
   });
 })();
+
+// 申込につながるクリックを Googleアナリティクスに記録
+(function () {
+  var rules = [
+    { name: 'request_materials', test: function (h) { return h.indexOf('docs.google.com/') > -1 && h.indexOf('/forms/') > -1; } },
+    { name: 'event_application', test: function (h) { return h.indexOf('saniku.ac.jp/hiroshima/news/') > -1; } },
+    { name: 'line_click', test: function (h) { return h.indexOf('lin.ee/') > -1 || h.indexOf('line.me/') > -1; } },
+    { name: 'phone_click', test: function (h) { return h.indexOf('tel:') === 0; } },
+    { name: 'guidebook_pdf', test: function (h) { return h.indexOf('drive.google.com/file/') > -1; } }
+  ];
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || typeof window.gtag !== 'function') return;
+    var h = a.getAttribute('href');
+    for (var i = 0; i < rules.length; i++) {
+      if (rules[i].test(h)) {
+        var place = a.closest('header') ? 'header' : a.closest('footer') ? 'footer' : a.closest('.cta') ? 'cta' : 'body';
+        window.gtag('event', rules[i].name, { link_url: h, link_text: (a.textContent || '').trim().slice(0, 40), placement: place });
+        break;
+      }
+    }
+  }, true);
+})();
