@@ -26,7 +26,7 @@
 ## 公開前にやること
 
 ### 1. 独自ドメインに書き換え
-`https://www.example.jp` を、取得したドメインにすべて置き換えます（全HTML、sitemap.xml、robots.txt）。
+`https://guide.hiroshima.saniku.ed.jp` を、取得したドメインにすべて置き換えます（全HTML、sitemap.xml、robots.txt）。
 
 ### 2. 「要確認」表示の解消
 赤枠の「要確認」「仮」「差し替え」は、確認が済んでいない箇所です。主なもの：
